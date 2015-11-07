@@ -1,10 +1,20 @@
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
+require 'capybara/rails'
+
+module Testable
+  def content_of_length_101
+    "123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789 !"
+  end
+end
 
 class ActiveSupport::TestCase
-  # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
+  include Testable
+end
 
-  # Add more helper methods to be used by all tests here...
+class ActionDispatch::IntegrationTest
+  include Capybara::DSL
+  include Testable
 end

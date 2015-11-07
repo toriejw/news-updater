@@ -1,0 +1,8 @@
+%h1 News and Events
+
+.news
+  - @news.each do |news_item|
+    .item
+      %h2= news_item.title
+      %p= news_item.formatted_content
+      = link_to 'Read more', news_path(news_item)

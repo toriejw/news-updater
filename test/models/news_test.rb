@@ -30,4 +30,13 @@ class NewsTest < ActiveSupport::TestCase
 
     refute news.valid?
   end
+
+  test "news content is formatted to be only 100 characters followed by '...'" do
+    news = News.new( { title: "Long Content", content: content_of_length_101 } )
+
+    formatted_content = news.formatted_content
+    expected = content_of_length_101[0..99] + '...'
+
+    assert_equal expected, formatted_content
+  end
 end
